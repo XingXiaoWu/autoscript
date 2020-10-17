@@ -21,47 +21,78 @@ function goBack() {
 // 任务1,选读文章
 // 6篇文章,每篇1分钟
 function XuanDuWenZhang1(){
+    let maxRead = 6;
+    let readSum = 0;
     // 1.切换到要闻
     className("android.widget.TextView").text("要闻").findOne().parent().click();
     sleep(2000);
-    // 获取vieewPager
-    let viewPager = id("view_pager").findOne();
-    // 2.拿到至少6条数据
-    let maxRead = 6;
-    let readSum = 0;
-    // 3.获取日子
-    let daynum = 0;
-    // 4.判断数量
-    while (readSum<maxRead) {
-        let day = getTime(daynum);
-        // readSum = readPage(day,readSum);
-        let tmp = readPage(day,readSum,viewPager.bounds());
-        console.log("tmp:"+tmp);
-        if(tmp === -1){
-            // 说明当前没获取到标题对应新闻,需要减一天时间再获取
-            daynum = daynum + 1;
-        }else{
-            // 说明当前页读完了新闻,该滚动一页了
-            console.log("该滚动了")
-            sleep(2000);
-            scrollDown(3);
-            console.log("滚动结束")
-            readSum = tmp;
-            sleep(2000);
-        }
-        console.log("日期:"+day+"阅读总数:"+readSum);
-        sleep(5000);
+    // 获取viewPager
+    let viewBounds = id("view_pager").findOne().bounds();
+    // 2.捕获播报按钮
+    while(readSum < maxRead){
+        // let workButtonArray = className("android.widget.TextView")
+        // .boundsInside(viewBounds.left,viewBounds.top,viewBounds.width(),viewBounds.height())
+        // .text("播报")
+        // .find()
+        let workButtonArray = boundsInside(viewBounds.left,viewBounds.top,viewBounds.width(),viewBounds.height())
+        .className("android.widget.TextView")
+        .text("播报")
+        .find()
+        console.log("抓到了"+workButtonArray.length+"个控件");
+        // 放出播报的父控件,并点击
+        workButtonArray.forEach(child =>{
+            log("chil======="+child.bounds())
+            try {
+                child.parent().click();
+                readSum = readSum + 1;
+                sleep(2000);
+                back();
+                sleep(2000);
+            } catch (error) {
+                console.log("报错了");
+            }
+            
+        })
     }
+   
+  
+    // // 3.获取日子
+    // let daynum = 0;
+    // // 4.判断数量
+    // while (readSum<maxRead) {
+    //     let day = getTime(daynum);
+    //     // readSum = readPage(day,readSum);
+    //     let tmp = readPage(readSum,viewPager.bounds());
+    //     console.log("tmp:"+tmp);
+    //     if(tmp === -1){
+    //         // 说明当前没获取到标题对应新闻,需要减一天时间再获取
+    //         daynum = daynum + 1;
+    //     }else{
+    //         // 说明当前页读完了新闻,该滚动一页了
+    //         console.log("该滚动了")
+    //         sleep(2000);
+    //         scrollDown(3);
+    //         console.log("滚动结束")
+    //         readSum = tmp;
+    //         sleep(2000);
+    //     }
+    //     console.log("日期:"+day+"阅读总数:"+readSum);
+    //     sleep(5000);
+    // }
     // 理论上两天的数据绝对够了,要是两天写不出6篇文章,这些记者同学可以下岗了
 }
+// 阅读文章
+function findPage(){
+
+}
 // 阅读文章,第一个是日期,第二个是总数
-function readPage(dayTime,readSum,viewBounds){
-    console.log("日期"+dayTime)
-    // left,top,width,height
-    let workButtonArray = boundsContains(viewBounds.left,viewBounds.top,viewBounds.width(),viewBounds.height())
-                                        .text(dayTime)
-                                        .find();
+function readPage(readSum,viewBounds){
+    let workButtonArray = className("android.widget.TextView")
+                                .boundsInside(viewBounds.left,viewBounds.top,viewBounds.width(),viewBounds.height())
+                                .text("播报")
+                                .find()
     let waitRead = workButtonArray.length;
+    console.log("抓到了"+waitRead+"个控件");
     if (waitRead === 0){
         // 说明没获取到
         return -1;
@@ -141,8 +172,8 @@ function getWidgetByTime(daynum){
 
 function main(){
     // console.show()
-    lauchXueXi();
-    sleep(5000);
+    // lauchXueXi();
+    // sleep(5000);
     XuanDuWenZhang1();
 }
 
