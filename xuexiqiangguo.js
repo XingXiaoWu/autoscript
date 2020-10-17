@@ -58,24 +58,24 @@ function XuanDuWenZhang1(){
 function readPage(dayTime,readSum,viewBounds){
     console.log("日期"+dayTime)
     // left,top,width,height
-    let workButtonArray = boundsContains(viewBounds.left,viewBounds.top,viewBounds.width(),viewBounds.height()).text(dayTime).find();
+    let workButtonArray = boundsContains(viewBounds.left,viewBounds.top,viewBounds.width(),viewBounds.height())
+                                        .text(dayTime)
+                                        .find();
     let waitRead = workButtonArray.length;
     if (waitRead === 0){
         // 说明没获取到
         return -1;
     }
     workButtonArray.forEach(child =>{
-        console.log("进页面");
         try {
             child.parent().click();
             readSum = readSum + 1;
+            sleep(3000);
+            back();
         } catch (error) {
             console.log("报错了");
         }
-        sleep(3000);
-        // 返回上一页
-        console.log("返回上一页");
-        back();
+        
     })
     return readSum;
 }
@@ -141,27 +141,9 @@ function getWidgetByTime(daynum){
 
 function main(){
     // console.show()
-    // lauchXueXi();
-    // sleep(5000);
-    // goToHome();
-    // sleep(5000);
+    lauchXueXi();
+    sleep(5000);
     XuanDuWenZhang1();
-    // XuanDuWenZhang2();
-    // className("android.widget.FrameLayout").depth(4).row(4).find().forEach(child => {
-    //     sleep(1000);
-    //     child.click();
-    //     sleep(1000);
-    //     back();
-    //     sleep(1000);
-    // });  
-    // className("android.widget.FrameLayout").depth(4).row(4).find().click();
-    // while(true){
-    //     sleep(1000);
-    //     scrollDown(3);
-    //     sleep(1000);
-    // }
-    // scrollDown(3);
-    // scrollUp(4);
 }
 
 main();
