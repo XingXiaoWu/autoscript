@@ -6,6 +6,7 @@ function lauchXueXi(){
 function touchList(findText,unleft,scrollIndex){
     let maxRead = 6;
     let readSum = 0;
+    let shareCount = 0;
     let viewBounds = id("view_pager").findOne(2000).bounds();
     console.log("找viewBounds");
     while(readSum < maxRead){
@@ -32,7 +33,16 @@ function touchList(findText,unleft,scrollIndex){
                 child.parent().click();
                 readSum = readSum + 1;
                 console.log("电机的按钮----"+child.bounds());
-                sleep(2000);
+                if(shareCount < 3){
+                    // 分享
+                    SharePgae()
+                    sleep(2000);
+                    // 评论
+                    Comments();
+                    sleep(2000);
+                    shareCount = shareCount + 1;
+                }
+                sleep(60000);
                 goBack();
                 sleep(2000);
             }catch (error) {
@@ -118,6 +128,28 @@ function FocusPlatform(){
     sleep(1000);
     goBack();
 }
+// 任务5,分享
+function SharePgae(){
+    className("android.widget.ImageView").depth("2").drawingOrder(4).indexInParent(2).findOne().click();
+    sleep(2000);
+    let shareButton = className("android.widget.TextView").text("分享到学习强国").findOne();
+    shareButton.parent().click();
+    sleep(2000);
+    // 写用户名称
+    id("session_title").text("吴集起").findOne().parent().click();
+    sleep(1000);
+    className("android.widget.Button").text("发送").findOne().click();
+}
+// 任务6,发表言论
+function Comments(){
+    let comButton = className("android.widget.TextView").text("欢迎发表你的观点").findOne();
+    comButton.click();
+    sleep(1000);
+    let comInpout = className("android.widget.EditText").findOne();
+    comInpout.setText("少年兴则国兴,少年强则国强");
+    sleep(1000);
+    className("android.widget.TextView").text("发布").findOne().click();
+}
 // 找寻滚动数据
 function testScroll(){
     for (let index = 0; index < 100; index++) {
@@ -155,16 +187,21 @@ function readPage(readSum,viewBounds){
 
 
 function main(){
-    // lauchXueXi();
-    // sleep(5000);
+    lauchXueXi();
+    sleep(5000);
     // 任务1:选读文章6篇
-    // XuanDuWenZhang();
+    XuanDuWenZhang();
     // 任务2，视听学习
-    // ShiTingXueXi();
+    ShiTingXueXi();
     // 任务3,本地
     LocalAction();
     // 任务4,关注两个平台
     FocusPlatform();
+    // 任务5,分享
+    // SharePgae()
+    // 任务6,评论
+    // Comments();
+    // 任务7,每日答题
 }
 
 main();
