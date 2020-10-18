@@ -2,6 +2,21 @@ function lauchXueXi(){
     // 打开学习强国
     launchApp("学习强国")
 }
+// 自动登录
+function autoLogin(){
+    let pwd_login = id("et_pwd_login").findOnce();
+    // 判断按钮是否存在
+    if(pwd_login === null){
+        toast("已登录")
+    }else{
+        pwd_login.click()
+        sleep(1000);
+        pwd_login.setText("123456571wjq@")
+        sleep(3000);
+        id("btn_next").findOnce().click();
+        toast("登录成功")
+    }
+}
 // 列表滚动(需要寻找的文字,不可能出现的左位移,滚动控件)
 function touchList(findText,unleft,scrollIndex){
     let maxRead = 6;
@@ -34,6 +49,7 @@ function touchList(findText,unleft,scrollIndex){
                 readSum = readSum + 1;
                 console.log("电机的按钮----"+child.bounds());
                 if(shareCount < 3){
+                    sleep(2000);
                     // 分享
                     SharePgae()
                     sleep(2000);
@@ -136,7 +152,7 @@ function SharePgae(){
     shareButton.parent().click();
     sleep(2000);
     // 写用户名称
-    id("session_title").text("吴集起").findOne().parent().click();
+    id("session_title").text("无星").findOne().parent().click();
     sleep(1000);
     className("android.widget.Button").text("发送").findOne().click();
 }
@@ -185,10 +201,10 @@ function readPage(readSum,viewBounds){
     return readSum;
 }
 
-
 function main(){
     lauchXueXi();
     sleep(5000);
+    autoLogin();
     // 任务1:选读文章6篇
     XuanDuWenZhang();
     // 任务2，视听学习
