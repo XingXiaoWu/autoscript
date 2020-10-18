@@ -114,7 +114,7 @@ function XuanDuWenZhang(){
     sleep(2000);
     className("android.widget.TextView").text("要闻").findOne().parent().click();
     sleep(2000);
-    touchList("播报",0,3,true)
+    touchList("播报",0,5,true)
 }
 // 任务2,视听学习
 function ShiTingXueXi(){
@@ -123,7 +123,7 @@ function ShiTingXueXi(){
     // 1.切换到要闻
     className("android.widget.TextView").text("联播频道").findOne().parent().click();
     sleep(2000);
-    touchList("中央广播电视总台",1116,7,false)
+    touchList("中央广播电视总台",1116,9,false)
 }
 // 任务3,本地功能
 function LocalAction(){
