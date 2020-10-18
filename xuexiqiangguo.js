@@ -75,7 +75,7 @@ function XuanDuWenZhang(){
     sleep(2000);
     touchList("播报",0,3)
 }
-
+// 任务2,视听学习
 function ShiTingXueXi(){
     goToTV();
     sleep(2000);
@@ -83,6 +83,40 @@ function ShiTingXueXi(){
     className("android.widget.TextView").text("联播频道").findOne().parent().click();
     sleep(2000);
     touchList("中央广播电视总台",1116,7)
+}
+// 任务3,本地功能
+function LocalAction(){
+     // 1.切换到要闻
+     goToHome();
+     sleep(2000);
+     className("android.widget.TextView").text("江西").findOne().parent().click();
+    //  2.找寻本地功能
+    // let viewBounds = id("view_pager").findOne(2000).bounds();
+    let tmpButtonArray = className("android.widget.TextView").text("江西学习平台").find();
+    let workButton = tmpButtonArray.get(0);
+    console.log(workButton.bounds());
+    workButton.parent().click();
+}
+// 任务4,关注平台
+function FocusPlatform(){
+    sleep(2000);
+    // 关注本平台
+    className("android.widget.ImageView").desc("订阅").findOne().parent().click();
+    sleep(2000);
+    // 关注南昌平台
+    className("android.support.v7.widget.RecyclerView").findOne().children().forEach(child => {
+        let target = child.findOne(className("android.widget.TextView").text("订阅"));
+        target.click();
+    });
+    sleep(2000);
+    className("android.support.v7.widget.RecyclerView").findOne().children().forEach(child => {
+        let target = child.findOne(className("android.widget.TextView").text("已订阅"));
+        target.click();
+    });
+    sleep(1000);
+    className("android.widget.TextView").text("已订阅").findOne().parent().click();
+    sleep(1000);
+    goBack();
 }
 // 找寻滚动数据
 function testScroll(){
@@ -124,9 +158,13 @@ function main(){
     // lauchXueXi();
     // sleep(5000);
     // 任务1:选读文章6篇
-    XuanDuWenZhang();
+    // XuanDuWenZhang();
     // 任务2，视听学习
     // ShiTingXueXi();
+    // 任务3,本地
+    LocalAction();
+    // 任务4,关注两个平台
+    FocusPlatform();
 }
 
 main();
