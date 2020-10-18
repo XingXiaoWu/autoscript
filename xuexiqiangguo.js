@@ -6,6 +6,10 @@ function lauchXueXi(){
 function goToHome(){
     id("home_button_tab_button_work").findOne().click();
 }
+// 跳转到电视台
+function goToTV(){
+    id("home_button_tab_button_contact").findOne().click();
+}
 // 获取之前几天的日期,num=0代表今天,1是昨天,2是前天
 function getTime(num) {
     let day = new Date();
@@ -18,16 +22,9 @@ function getTime(num) {
 function goBack() {
     back()
 }
-// 去重
-function unique( arr ){
-    // 如果新数组的当前元素的索引值 == 该元素在原始数组中的第一个索引，则返回当前元素
-    return arr.filter(function(item,index){
-        return arr.indexOf(item,0) === index;
-    });
-}
 // 任务1,选读文章
 // 6篇文章,每篇1分钟
-function XuanDuWenZhang1(){
+function XuanDuWenZhang(){
     let maxRead = 6;
     let readSum = 0;
     // 1.切换到要闻
@@ -73,6 +70,15 @@ function XuanDuWenZhang1(){
     }
 }
 
+function ShiTingXueXi(){
+    goToTV();
+    sleep(2000);
+    let maxRead = 6;
+    let readSum = 0;
+    // 1.切换到要闻
+    className("android.widget.TextView").text("联播频道").findOne().parent().click();
+}
+
 // 阅读文章,第一个是日期,第二个是总数
 function readPage(readSum,viewBounds){
     let workButtonArray = className("android.widget.TextView")
@@ -99,70 +105,14 @@ function readPage(readSum,viewBounds){
     return readSum;
 }
 
-function XuanDuWenZhang2(){
-    // 1.切换到要闻
-    className("android.widget.TextView").text("要闻").findOne().parent().click();
-    sleep(2000);
-    let num = 1;
-    while (num < 7){
-        try {
-            className("android.widget.FrameLayout").depth(4).row(num).find().click();    
-            console.log(num);
-            sleep(2000);
-            back();
-            // 等两秒,然后回退
-            num = num + 1;
-        } catch (error) {
-            // 滑动页面
-            console.log("该滚动了")
-            sleep(2000);
-            scrollDown(3);
-            console.log("滚动结束")
-            sleep(2000);
-        }
-        
-    }
-    
-    // // 2.获取当前可获取到的首页日期数据
-    // // className("android.widget.FrameLayout").depth(4).row(4).find().click();
-    // let workButtonArray = getWidgetByTime(0);
-    // // 3.判断是否可点击
-    // workButtonArray.forEach(child =>{
-    //     console.log("进页面");
-    //     try {
-    //         child.parent().click();
-    //         console.log("可点击");
-    //         sleep(2000);
-    //         back();
-    //         // 返回这个可点击按钮
-    //     } catch (error) {
-    //         console.log("报错了");
-    //     }
-    // })
-}
-function XuanDuWenZhang3(){
-    // 1.切换到要闻
-    className("android.widget.TextView").text("要闻").findOne().parent().click();
-    sleep(2000);
-}
-// 根据日期获取控件
-function getWidgetByTime(daynum){
-    let day = getTime(daynum);
-    console.log(day);
-    let workButtonArray = text(day).find();
-    let waitRead = workButtonArray.length;
-    if (waitRead === 0){
-        // 说明没获取到,获取前一天的
-        return getWidgetByTime(daynum+1);
-    }
-    return workButtonArray
-}
 
 function main(){
-    // console.show()
-    lauchXueXi();
-    sleep(5000);
-    XuanDuWenZhang1();
+    // lauchXueXi();
+    // sleep(5000);
+    // 任务1:选读文章6篇
+    // XuanDuWenZhang();
+    // 任务2，视听学习
+    ShiTingXueXi();
 }
 
 main();
