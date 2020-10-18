@@ -17,8 +17,8 @@ function autoLogin(){
         toast("登录成功")
     }
 }
-// 列表滚动(需要寻找的文字,不可能出现的左位移,滚动控件)
-function touchList(findText,unleft,scrollIndex){
+// 列表滚动(需要寻找的文字,不可能出现的左位移,滚动控件,是否分享)
+function touchList(findText,unleft,scrollIndex,share){
     let maxRead = 6;
     let readSum = 0;
     let shareCount = 0;
@@ -48,17 +48,17 @@ function touchList(findText,unleft,scrollIndex){
                 child.parent().click();
                 readSum = readSum + 1;
                 console.log("电机的按钮----"+child.bounds());
-                if(shareCount < 3){
+                if( share && shareCount < 3){
                     sleep(2000);
                     // 分享
-                    SharePgae()
+                    SharePgae();
                     sleep(2000);
                     // 评论
                     Comments();
                     sleep(2000);
                     shareCount = shareCount + 1;
                 }
-                sleep(60000);
+                sleep(3000);
                 goBack();
                 sleep(2000);
             }catch (error) {
@@ -99,7 +99,7 @@ function XuanDuWenZhang(){
     sleep(2000);
     className("android.widget.TextView").text("要闻").findOne().parent().click();
     sleep(2000);
-    touchList("播报",0,3)
+    touchList("播报",0,3,true)
 }
 // 任务2,视听学习
 function ShiTingXueXi(){
@@ -108,7 +108,7 @@ function ShiTingXueXi(){
     // 1.切换到要闻
     className("android.widget.TextView").text("联播频道").findOne().parent().click();
     sleep(2000);
-    touchList("中央广播电视总台",1116,7)
+    touchList("中央广播电视总台",1116,7,false)
 }
 // 任务3,本地功能
 function LocalAction(){
