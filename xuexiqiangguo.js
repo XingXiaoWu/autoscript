@@ -2,6 +2,21 @@ function lauchXueXi(){
     // 打开学习强国
     launchApp("学习强国")
 }
+// 唤醒机器
+function keepDrow(){
+    device.wakeUpIfNeeded();
+    device.keepScreenOn();
+    if(!device.isScreenOn()){
+        device.wakeUpIfNeeded();
+        keepDrow();
+    }
+}
+
+// 上划解锁
+function threeFingerSwipeUp(){
+    swipe(500,1890,500,1100,501)
+    sleep(2000)
+}
 // 自动登录
 function autoLogin(){
     let pwd_login = id("et_pwd_login").findOnce();
@@ -202,6 +217,10 @@ function readPage(readSum,viewBounds){
 }
 
 function main(){
+    keepDrow();
+    sleep(2000);
+    threeFingerSwipeUp();
+    sleep(2000);
     lauchXueXi();
     sleep(5000);
     autoLogin();
