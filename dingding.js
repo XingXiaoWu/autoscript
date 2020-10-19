@@ -57,7 +57,7 @@ function goToAttendance(){
     // let workButton = dakaText.parent().parent().parent();
     // 跳转
     if(workButton !== null){
-        console.log("不为空");
+        console.log("不为空"+workButton);
         // 跳转到考勤打卡页面
         workButton.click();
     }else{
@@ -81,7 +81,7 @@ function punchClock(msg){
 }
 
 // 下班打卡
-function main(){
+function main(msg){
     // console.show()
     // 唤醒屏幕
     keepDrow();
@@ -95,10 +95,10 @@ function main(){
     isLogined();
     sleep(5000);
     goToWorkspace();
-    sleep(5000);
+    sleep(10000);
     goToAttendance();
-    sleep(5000);
-    punchClock("上班打卡");
+    sleep(10000);
+    punchClock(msg);
     // punchClock("外勤打卡");
 }
-main();
+main("下班打卡");
