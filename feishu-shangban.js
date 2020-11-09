@@ -29,5 +29,7 @@ function main(){
     sleep(2000);
     // 加载飞书
     lauchFeishu();
+    sleep(5000);
+    home();
 }
 main();

@@ -2,7 +2,7 @@
 // 唤醒机器
 function keepDrow(){
     device.wakeUpIfNeeded();
-    device.keepScreenOn();
+    device.keepScreenOn(3600 * 1000);
     if(!device.isScreenOn()){
         device.wakeUpIfNeeded();
         keepDrow();
@@ -29,5 +29,7 @@ function main(){
     sleep(2000);
     // 加载飞书
     lauchFeishu();
+    sleep(5000);
+    home();
 }
 main();
