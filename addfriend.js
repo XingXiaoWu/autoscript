@@ -34,14 +34,30 @@ function touchSearch(friend){
 }
 // 添加到通讯录 3000
 function addFriend(){
-    const addButton = text("添加到通讯录").findOne().bounds();
-    click(addButton.centerX(), addButton.centerY());
-    sleep(3000);
+    const addButton = text("添加到通讯录").findOne(3000);
+    const sendButton = text("发消息").findOne(3000);
+    if (addButton) {
+        click(addButton.bounds().centerX(), addButton.bounds().centerY());
+        sleep(3000);  
+        return true;  
+    }else if (sendButton){
+        // 意味着加过人了
+        // toast("这个人已经加过了")
+        sleep(3000);
+        back();
+        sleep(1000);
+        return false;
+    }else{
+        // 意味着用户不存在
+        // toast("用户不存在")
+        sleep(3000);
+        return false;
+    }
 }
 
 function main() {
     // 在下面这行，前面添加两个//
-    let friends = [];
+    let friends = [{name: 'aaa',value:'18875967147'},{name:'123',value:'shuxiangzhineng'},{"name":"高州名媛窗帘店","value":"18023408831"}];
     // 点击添加用户
     touchAdd();
     for (let index = 0; index < friends.length; index = index + 1) {
@@ -49,13 +65,20 @@ function main() {
         // // 点击添加微信号/手机号
         touchSearch(element.value);
         // 添加朋友
-        addFriend();
-        // 填写申请信息和备注
-        writeRemark(element.name);
-        back();
-        sleep(1000);
-        back();
-        sleep(1000);
+        const tmp = addFriend();
+        if (tmp) {
+            // 填写申请信息和备注
+            console.log("填写备注");
+            writeRemark(element.name);
+            back();
+            sleep(1000);
+            back();
+            sleep(1000);
+        }else{
+            back();
+            sleep(2000);
+        }
+       
     }
    
 }
