@@ -1,9 +1,11 @@
 // 填写备注并发送 3000
 function writeRemark(name) {
     let remark = "电动窗帘厂家直销，欢迎洽谈合作！";
-    let input1 = className("android.widget.EditText").drawingOrder(3).findOne();
+    // let input1 = className("android.widget.EditText").drawingOrder(3).findOne();
+    let input1 = className("android.widget.EditText").bounds(86,538,994,797).findOne();
     input1.setText(remark);
-    let input2 = className("android.widget.EditText").drawingOrder(5).findOne();
+    // let input2 = className("android.widget.EditText").drawingOrder(5).findOne();
+    let input2 = className("android.widget.EditText").bounds(86,968,994,1119).findOne();
     input2.setText(name);
     const sendButton = text("发送").findOne().bounds();
     click(sendButton.centerX(), sendButton.centerY());
@@ -56,6 +58,7 @@ function main() {
         // 填写申请信息和备注
         writeRemark(element.name);
         back();
+        sleep(1000);
         back();
         sleep(1000);
     }
