@@ -40,13 +40,8 @@ function addFriend(){
 }
 
 function main() {
-    let friends = [{
-        name:'吴兴',
-        value:'yrjmua',
-    },{
-        name:'施健斌',
-        value:'shuxiangzhineng',
-    }];
+    // 在下面这行，前面添加两个//
+    let friends = [];
     // 点击添加用户
     touchAdd();
     for (let index = 0; index < friends.length; index = index + 1) {
