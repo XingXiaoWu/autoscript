@@ -1,9 +1,9 @@
 const friends = require('./friends')
 const reason = '我是中国工商银行八里湖支行的小黎，之前给您做过商户码的'
 // 备注id，可能要变更
-const remarkID = "cfk"
+// const remarkID = "cfk"
 // 申请理由id，可能要变更
-const reasonID = "b8u"
+// const reasonID = "b8u"
 // 客户微信类型
 const VXType = {
     // 没找到（验证通过）
@@ -146,7 +146,9 @@ function addVX(name) {
     sleep(1000);
     // 设置备注(根据机型变更)
     // let remark = className("android.widget.EditText").bounds(bounds1.a, bounds1.b, bounds1.c, bounds1.d).findOne(3000);
-    let remark = id(remarkID).findOne(3000)
+    // let remark = id(remarkID).findOne(3000)
+    // remark.setText(name);
+    let remark = className("android.widget.EditText").findOne(3000);
     remark.setText(name);
     sleep(1000);
     let saveButton = className("android.widget.TextView").text("保存").findOne(3000);
@@ -163,8 +165,8 @@ function addVX(name) {
 function applyReason() {
     // 申请理由(根据机型变更)
     // clicks(bounds2);
-    let reasonTextView = id(reasonID).findOne(3000)
-    clicks(reasonTextView.bounds().centerX(), reasonTextView.bounds().centerY());
+    // let reasonTextView = id(reasonID).findOne(3000)
+    clicks(498,1112);
     sleep(1000);
     let input1 = className("android.widget.EditText").findOne(3000);
     input1.setText(reason);
