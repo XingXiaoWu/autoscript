@@ -189,7 +189,7 @@ function main() {
     touchAddOnce()
 
     for (let index = 0; index < friends.length; index = index + 1) {
-        let element = friends[0];
+        let element = friends[index];
         // 2.搜索客户
         touchSearch(element.phone);
         // 3.判断客户使用的微信类型
